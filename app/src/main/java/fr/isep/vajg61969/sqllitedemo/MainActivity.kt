@@ -18,30 +18,45 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val db = DatabaseHelper(this)
+
             SQLliteDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    androidx.compose.foundation.layout.Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                        contentAlignment = androidx.compose.ui.Alignment.Center
+                    ) {
+                        androidx.compose.material3.Button(
+                            onClick = {
+                                // Insère une tâche test
+                                val id = db.insertTask("Ma première tâche")
+                                println("Tâche insérée avec l'ID $id")
+                            },
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            androidx.compose.material3.Text("Ajouter tâche test")
+                        }
+                    }
                 }
             }
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        @Composable
+        fun Greeting(name: String, modifier: Modifier = Modifier) {
+            Text(
+                text = "Hello $name!",
+                modifier = modifier
+            )
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SQLliteDemoTheme {
-        Greeting("Android")
+        @Preview(showBackground = true)
+        @Composable
+        fun GreetingPreview() {
+            SQLliteDemoTheme {
+                Greeting("Android")
+            }
+        }
     }
 }
