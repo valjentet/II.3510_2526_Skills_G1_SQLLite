@@ -15,11 +15,10 @@ import fr.isep.vajg61969.sqllitedemo.ui.theme.SQLliteDemoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             val db = DatabaseHelper(this)
-
             SQLliteDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     androidx.compose.foundation.layout.Box(
@@ -30,7 +29,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         androidx.compose.material3.Button(
                             onClick = {
-                                // Insère une tâche test
                                 val id = db.insertTask("Ma première tâche")
                                 println("Tâche insérée avec l'ID $id")
                             },
@@ -42,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
 
         @Composable
         fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -56,7 +55,6 @@ class MainActivity : ComponentActivity() {
         fun GreetingPreview() {
             SQLliteDemoTheme {
                 Greeting("Android")
-            }
         }
     }
 }
