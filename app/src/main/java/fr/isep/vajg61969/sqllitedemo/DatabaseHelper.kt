@@ -10,9 +10,7 @@ data class Task(
     val title: String,
     val isDone: Boolean
 )
-class DatabaseHelper (context: Context) :
-    SQLiteOpenHelper(context, "tasks.db", null, 1) {
-
+class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, "tasks.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""
             CREATE TABLE tasks

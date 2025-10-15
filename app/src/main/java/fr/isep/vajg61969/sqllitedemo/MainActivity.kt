@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -25,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fr.isep.vajg61969.sqllitedemo.ui.theme.SQLliteDemoTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    GreetingScreen(modifier = Modifier.padding(innerPadding))
+                    GreetingScreen(db, modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -43,38 +46,40 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingScreen(modifier: Modifier = Modifier) {
+fun GreetingScreen(db: DatabaseHelper, modifier: Modifier = Modifier) {
     var prenom by rememberSaveable { mutableStateOf("") }
     var submittedName by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Gray)
+            .background(Color.Black)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Center
     ) {
-        if (submittedName) {
+        if (!submittedName) {
             OutlinedTextField( //Display a text field
                 value = prenom,
                 onValueChange = { prenom = it },
-                label = { Text("Prénom FDP") },
+                label = { Text("Mon Prénom") },
                 modifier = Modifier.fillMaxWidth()
             )
             Button(
                 onClick = { submittedName = true },
-                //enabled = prenom.isNotBlank()
+                enabled = prenom.isNotBlank()
             ) {Text("Valider")}
         } else {
-            Text("Bonjour Valentin")
-            TaskManager(modifier = Modifier.padding(16.dp))
+            Text("Bonjour $prenom!")
+            TaskManager(db, modifier = Modifier.padding(16.dp))
         }
     }
 }
 @Composable
-fun TaskManager(modifier: Modifier = Modifier) {
+fun TaskManager(db: DatabaseHelper, modifier: Modifier = Modifier) {
     var submittedDisplayTasks by rememberSaveable { mutableStateOf(false) }
+    var tasks by rememberSaveable { mutableStateOf(emptyList<Task>()) }
+
     Column(
         modifier = modifier
             .background(Color.LightGray)
@@ -83,12 +88,23 @@ fun TaskManager(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center
     ) {
         Button(
-            onClick = { submittedDisplayTasks = true }
+            onClick = { submittedDisplayTasks = true
+                tasks = db.getAllTasks()}
         ) {Text("Afficher les tâches")}
+
+        if (submittedDisplayTasks) {
+            if (tasks.isEmpty()) {
+                Text("Aucune tâche trouvée.")
+            } else {
+                LazyColumn {
+                    items(tasks) { task ->
+                        Text("• ${task.title} ${if (task.isDone) "✅" else "❌"}")
+                    }
+                }
+            }
+        }
     }
 }
-
-
 
 
 
