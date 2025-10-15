@@ -53,7 +53,7 @@ fun GreetingScreen(modifier: Modifier = Modifier) {
             .background(Color.Gray)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
         if (submittedName) {
             OutlinedTextField( //Display a text field
@@ -77,15 +77,14 @@ fun TaskManager(modifier: Modifier = Modifier) {
     var submittedDisplayTasks by rememberSaveable { mutableStateOf(false) }
     Column(
         modifier = modifier
-            .fillMaxSize()
             .background(Color.LightGray)
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = { submittedDisplayTasks = true }
-        ) {}
+        ) {Text("Afficher les tâches")}
     }
 }
 
