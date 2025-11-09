@@ -37,7 +37,7 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Nouvelle Dépense",
+            text = "New Expense",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth()
@@ -48,8 +48,8 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
         OutlinedTextField(
             value = category,
             onValueChange = { category = it },
-            label = { Text("Catégorie *") },
-            placeholder = { Text("Ex: Alimentation, Transport...") },
+            label = { Text("Category *") },
+            placeholder = { Text("Ex: Food, Transport...") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -57,7 +57,7 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
         OutlinedTextField(
             value = amount,
             onValueChange = { amount = it },
-            label = { Text("Montant (€) *") },
+            label = { Text("Amount (€) *") },
             placeholder = { Text("0.00") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             modifier = Modifier.fillMaxWidth(),
@@ -71,14 +71,14 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
             placeholder = { Text("YYYY-MM-DD") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            supportingText = { Text("Format: YYYY-MM-DD (ex: $today)") }
+            supportingText = { Text("Format: YYYY-MM-DD (e.g.: $today)") }
         )
 
         OutlinedTextField(
             value = title,
             onValueChange = { title = it },
-            label = { Text("Description (optionnel)") },
-            placeholder = { Text("Description de la dépense") },
+            label = { Text("Description (optional)") },
+            placeholder = { Text("Expense description") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -89,17 +89,18 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
             onClick = {
                 val amt = amount.toDoubleOrNull()
                 if (category.isBlank() || amt == null || amt <= 0) {
-                    message = "Veuillez remplir la catégorie et un montant valide."
+                    message = "Please fill in the category and a valid amount."
+                    
                     messageColor = errorColor
                     return@Button
                 }
                 if (date.isBlank() || !date.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
-                    message = "Date invalide. Utilisez le format YYYY-MM-DD"
+                    message = "Invalid date. Use format YYYY-MM-DD"
                     messageColor = errorColor
                     return@Button
                 }
                 val e = Expense(
-                    title = title.trim().ifBlank { "Dépense" },
+                    title = title.trim().ifBlank { "Expense" },
                     amount = amt,
                     category = category.trim(),
                     date = date.trim()
@@ -109,14 +110,14 @@ fun ExpenseScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
                 amount = ""
                 category = ""
                 date = today
-                message = "✓ Dépense enregistrée avec succès !"
+                message = "✓ Expense saved successfully!"
                 messageColor = Color(0xFF006400)
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
         ) {
-            Text("Enregistrer la dépense", fontSize = 16.sp)
+            Text("Save Expense", fontSize = 16.sp)
         }
 
         if (message.isNotEmpty()) {

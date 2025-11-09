@@ -33,7 +33,7 @@ fun IncomeScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Revenu Mensuel",
+            text = "Monthly Income",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth()
@@ -44,17 +44,17 @@ fun IncomeScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
         OutlinedTextField(
             value = month,
             onValueChange = { month = it },
-            label = { Text("Mois *") },
+            label = { Text("Month *") },
             placeholder = { Text("YYYY-MM") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            supportingText = { Text("Format: YYYY-MM (ex: ${LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"))})") }
+            supportingText = { Text("Format: YYYY-MM (e.g.: ${LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"))})") }
         )
 
         OutlinedTextField(
             value = amount,
             onValueChange = { amount = it },
-            label = { Text("Montant (€) *") },
+            label = { Text("Amount (€) *") },
             placeholder = { Text("0.00") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             modifier = Modifier.fillMaxWidth(),
@@ -67,26 +67,26 @@ fun IncomeScreen(vm: BudgetViewModel, onDone: () -> Unit = {}) {
             onClick = {
                 val amt = amount.toDoubleOrNull()
                 if (amt == null || amt <= 0) {
-                    message = "Veuillez entrer un montant valide."
+                    message = "Please enter a valid amount."
                     messageColor = errorColor
                     return@Button
                 }
                 if (!month.matches(Regex("\\d{4}-\\d{2}"))) {
-                    message = "Format de mois invalide. Utilisez YYYY-MM"
+                    message = "Invalid month format. Use YYYY-MM"
                     messageColor = errorColor
                     return@Button
                 }
                 val i = Income(month = month.trim(), amount = amt)
                 vm.addIncome(i, month.trim())
                 amount = ""
-                message = "✓ Revenu enregistré avec succès !"
+                message = "✓ Income saved successfully!"
                 messageColor = Color(0xFF006400)
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
         ) {
-            Text("Enregistrer le revenu", fontSize = 16.sp)
+            Text("Save Income", fontSize = 16.sp)
         }
 
         if (message.isNotEmpty()) {

@@ -38,7 +38,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
     var editingExpense by remember { mutableStateOf<Expense?>(null) }
     var editingIncome by remember { mutableStateOf<Income?>(null) }
 
-    // Charger automatiquement le mois actuel au démarrage
+    // Automatically load current month on startup
     LaunchedEffect(Unit) {
         vm.loadMonth(currentMonth)
     }
@@ -47,7 +47,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
         vm.loadMonth(month)
     }
 
-    // Collecter les flows
+    // Collect flows
     LaunchedEffect(Unit) {
         vm.expenses.collectLatest { expenses = it }
     }
@@ -70,7 +70,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Prévision Mensuelle",
+            text = "Monthly Forecast",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth()
@@ -84,7 +84,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
             OutlinedTextField(
                 value = month,
                 onValueChange = { month = it },
-                label = { Text("Mois") },
+                label = { Text("Month") },
                 placeholder = { Text("YYYY-MM") },
                 modifier = Modifier.weight(1f),
                 singleLine = true
@@ -93,11 +93,11 @@ fun SummaryScreen(vm: BudgetViewModel) {
                 onClick = { vm.loadMonth(month) },
                 modifier = Modifier.height(56.dp)
             ) {
-                Text("Actualiser")
+                Text("Refresh")
             }
         }
 
-        // Carte de résumé
+        // Summary card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
@@ -113,7 +113,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Revenu total", fontSize = 16.sp)
+                    Text("Total Income", fontSize = 16.sp)
                     Text(
                         text = "${formatMoney(totalI)} €",
                         fontSize = 18.sp,
@@ -128,7 +128,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Dépenses totales", fontSize = 16.sp)
+                    Text("Total Expenses", fontSize = 16.sp)
                     Text(
                         text = "${formatMoney(totalE)} €",
                         fontSize = 18.sp,
@@ -144,7 +144,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Solde restant",
+                        text = "Remaining Balance",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -158,9 +158,9 @@ fun SummaryScreen(vm: BudgetViewModel) {
             }
         }
 
-        // Liste des revenus
+        // Income list
         Text(
-            text = "Revenus du mois",
+            text = "Monthly Incomes",
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(vertical = 8.dp)
@@ -172,7 +172,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "Aucun revenu enregistré pour ce mois.",
+                    text = "No income recorded for this month.",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
@@ -196,9 +196,9 @@ fun SummaryScreen(vm: BudgetViewModel) {
             }
         }
 
-        // Liste des dépenses
+        // Expense list
         Text(
-            text = "Dépenses du mois",
+            text = "Monthly Expenses",
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(vertical = 8.dp)
@@ -210,7 +210,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "Aucune dépense enregistrée pour ce mois.",
+                    text = "No expenses recorded for this month.",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(24.dp),
@@ -233,7 +233,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
         }
     }
 
-    // Dialog de modification de dépense
+    // Expense edit dialog
     editingExpense?.let { expense ->
         EditExpenseDialog(
             expense = expense,
@@ -245,7 +245,7 @@ fun SummaryScreen(vm: BudgetViewModel) {
         )
     }
 
-    // Dialog de modification de revenu
+    // Income edit dialog
     editingIncome?.let { income ->
         EditIncomeDialog(
             income = income,
@@ -310,7 +310,7 @@ fun ExpenseItemCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = "Modifier",
+                        contentDescription = "Edit",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -320,7 +320,7 @@ fun ExpenseItemCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Supprimer",
+                        contentDescription = "Delete",
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -351,7 +351,7 @@ fun IncomeItemCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Revenu - ${income.month}",
+                    text = "Income - ${income.month}",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -372,7 +372,7 @@ fun IncomeItemCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = "Modifier",
+                        contentDescription = "Edit",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -382,7 +382,7 @@ fun IncomeItemCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Supprimer",
+                        contentDescription = "Delete",
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -416,7 +416,7 @@ fun EditExpenseDialog(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "Modifier la dépense",
+                    text = "Edit Expense",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -424,7 +424,7 @@ fun EditExpenseDialog(
                 OutlinedTextField(
                     value = category,
                     onValueChange = { category = it },
-                    label = { Text("Catégorie *") },
+                    label = { Text("Category *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -432,7 +432,7 @@ fun EditExpenseDialog(
                 OutlinedTextField(
                     value = amount,
                     onValueChange = { amount = it },
-                    label = { Text("Montant (€) *") },
+                    label = { Text("Amount (€) *") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -471,22 +471,22 @@ fun EditExpenseDialog(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Annuler")
+                        Text("Cancel")
                     }
                     Button(
                         onClick = {
                             val amt = amount.toDoubleOrNull()
                             if (category.isBlank() || amt == null || amt <= 0) {
-                                message = "Veuillez remplir tous les champs correctement."
+                                message = "Please fill in all fields correctly."
                                 return@Button
                             }
                             if (!date.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
-                                message = "Date invalide. Format: YYYY-MM-DD"
+                                message = "Invalid date. Format: YYYY-MM-DD"
                                 return@Button
                             }
                             onSave(
                                 expense.copy(
-                                    title = title.trim().ifBlank { "Dépense" },
+                                    title = title.trim().ifBlank { "Expense" },
                                     amount = amt,
                                     category = category.trim(),
                                     date = date.trim()
@@ -495,7 +495,7 @@ fun EditExpenseDialog(
                         },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Enregistrer")
+                        Text("Save")
                     }
                 }
             }
@@ -526,7 +526,7 @@ fun EditIncomeDialog(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "Modifier le revenu",
+                    text = "Edit Income",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -534,7 +534,7 @@ fun EditIncomeDialog(
                 OutlinedTextField(
                     value = month,
                     onValueChange = { month = it },
-                    label = { Text("Mois *") },
+                    label = { Text("Month *") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     supportingText = { Text("Format: YYYY-MM") }
@@ -543,7 +543,7 @@ fun EditIncomeDialog(
                 OutlinedTextField(
                     value = amount,
                     onValueChange = { amount = it },
-                    label = { Text("Montant (€) *") },
+                    label = { Text("Amount (€) *") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -565,17 +565,17 @@ fun EditIncomeDialog(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Annuler")
+                        Text("Cancel")
                     }
                     Button(
                         onClick = {
                             val amt = amount.toDoubleOrNull()
                             if (amt == null || amt <= 0) {
-                                message = "Montant invalide."
+                                message = "Invalid amount."
                                 return@Button
                             }
                             if (!month.matches(Regex("\\d{4}-\\d{2}"))) {
-                                message = "Format de mois invalide. Utilisez YYYY-MM"
+                                message = "Invalid month format. Use YYYY-MM"
                                 return@Button
                             }
                             onSave(
@@ -587,7 +587,7 @@ fun EditIncomeDialog(
                         },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Enregistrer")
+                        Text("Save")
                     }
                 }
             }

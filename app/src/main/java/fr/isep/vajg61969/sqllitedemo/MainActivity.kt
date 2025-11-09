@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Création des dépendances
+        // Creating dependencies
         val db = BudgetDatabaseHelper(this)
         val repo = BudgetRepository(db)
         val vm = BudgetViewModel(repo)
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     TopAppBar(
                         title = {
                             Text(
-                                text = "Gestion de Budget",
+                                text = "Budget Management",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp
                             )
@@ -49,19 +49,19 @@ class MainActivity : ComponentActivity() {
                     NavigationBar {
                         NavigationBarItem(
                             icon = { Text("📊") },
-                            label = { Text("Prévision") },
+                            label = { Text("Forecast") },
                             selected = currentScreen == "summary",
                             onClick = { currentScreen = "summary" }
                         )
                         NavigationBarItem(
                             icon = { Text("💸") },
-                            label = { Text("Dépense") },
+                            label = { Text("Expense") },
                             selected = currentScreen == "expense",
                             onClick = { currentScreen = "expense" }
                         )
                         NavigationBarItem(
                             icon = { Text("💰") },
-                            label = { Text("Revenu") },
+                            label = { Text("Income") },
                             selected = currentScreen == "income",
                             onClick = { currentScreen = "income" }
                         )
