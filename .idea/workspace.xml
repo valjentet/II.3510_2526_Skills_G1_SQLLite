@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="303012f6-3fc8-4a62-9446-70277d4af4e1" name="Liste de modifications" comment="" />
+    <list default="true" id="303012f6-3fc8-4a62-9446-70277d4af4e1" name="Liste de modifications" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/ExpenseScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/ExpenseScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/IncomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/IncomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/SummaryScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/view/SummaryScreen.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
