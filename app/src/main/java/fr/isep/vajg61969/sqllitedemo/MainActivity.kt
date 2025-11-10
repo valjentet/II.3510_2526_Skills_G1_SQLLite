@@ -25,7 +25,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Creating dependencies
+        // SQLite database initialization: Creates/opens budget.db file in app's private directory.
+        // SQLiteOpenHelper automatically creates database file if it doesn't exist, or opens existing one.
+        // Repository and ViewModel layers provide clean API for SQLite operations.
         val db = BudgetDatabaseHelper(this)
         val repo = BudgetRepository(db)
         val vm = BudgetViewModel(repo)
