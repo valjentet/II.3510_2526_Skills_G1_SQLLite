@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="303012f6-3fc8-4a62-9446-70277d4af4e1" name="Liste de modifications" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/database/BudgetDatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/database/BudgetDatabaseHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/model/Expense.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/model/Expense.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/model/Income.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/data/model/Income.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/repository/BudgetRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/repository/BudgetRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/viewmodel/BudgetViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/isep/vajg61969/sqllitedemo/ui/viewmodel/BudgetViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

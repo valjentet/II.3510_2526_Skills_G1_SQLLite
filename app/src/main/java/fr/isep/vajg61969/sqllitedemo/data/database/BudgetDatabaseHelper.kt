@@ -43,7 +43,6 @@ class BudgetDatabaseHelper(context: Context) :
     /**
      * SQLite migration: Called when database version changes.
      * Drops existing tables and recreates them (destroys all data).
-     * In production, use ALTER TABLE to preserve existing data.
      */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS expenses")
@@ -52,7 +51,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite INSERT: Adds new expense row to expenses table.
+     * SQLite insert: Adds new expense row to expenses table.
      * ContentValues safely maps Kotlin data to SQLite columns (prevents SQL injection).
      * Returns the auto-generated row ID, or -1 if insertion fails.
      */
@@ -68,7 +67,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite INSERT: Adds new income row to incomes table.
+     * SQLite insert: Adds new income row to incomes table.
      * Returns the auto-generated row ID for the inserted income record.
      */
     fun insertIncome(i: Income): Long {
@@ -81,7 +80,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite SELECT: Queries expenses table using parameterized query (WHERE date LIKE ?).
+     * SQLite select: Queries expenses table using parameterized query (WHERE date LIKE ?).
      * LIKE operator with "$month-%" pattern matches all dates starting with the month.
      */
     fun getExpensesForMonth(month: String): List<Expense> {
@@ -147,7 +146,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite UPDATE: Modifies existing expense row identified by id.
+     * SQLite update: Modifies existing expense row identified by id.
      * ContentValues contains new column values, WHERE clause uses parameterized id=? for safety.
      * Returns number of rows updated (1 if successful, 0 if id not found).
      */
@@ -163,7 +162,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite UPDATE: Modifies existing income row by id.
+     * SQLite update: Modifies existing income row by id.
      * Updates month and amount columns for the specified income record.
      */
     fun updateIncome(i: Income): Int {
@@ -176,7 +175,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite SELECT: Retrieves single income by primary key (id).
+     * SQLite select: Retrieves single income by primary key (id).
      * Returns Income object if found, null if no record matches the id.
      */
     fun getIncomeById(id: Int): Income? {
@@ -198,7 +197,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite SELECT: Queries all incomes for a specific month.
+     * SQLite select: Queries all incomes for a specific month.
      * Uses exact match on month column (WHERE month = ?) to filter income records.
      */
     fun getIncomesForMonth(month: String): List<Income> {
@@ -222,7 +221,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite DELETE: Removes expense row from expenses table by id.
+     * SQLite delete: Removes expense row from expenses table by id.
      * Parameterized WHERE clause (id=?) prevents SQL injection attacks.
      * Returns number of rows deleted (1 if successful, 0 if id not found).
      */
@@ -232,7 +231,7 @@ class BudgetDatabaseHelper(context: Context) :
     }
 
     /**
-     * SQLite DELETE: Removes income row from incomes table by id.
+     * SQLite delete: Removes income row from incomes table by id.
      * Deletes the income record with the specified primary key.
      */
     fun deleteIncome(id: Int): Int {

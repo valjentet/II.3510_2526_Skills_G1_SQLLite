@@ -7,7 +7,6 @@ import fr.isep.vajg61969.sqllitedemo.data.model.Income
 /**
  * Repository pattern: Abstraction layer between ViewModel and SQLite database.
  * Delegates all SQLite operations to BudgetDatabaseHelper.
- * This separation allows easy testing and future migration to Room database.
  */
 class BudgetRepository(private val db: BudgetDatabaseHelper) {
     fun addExpense(e: Expense) = db.insertExpense(e)
