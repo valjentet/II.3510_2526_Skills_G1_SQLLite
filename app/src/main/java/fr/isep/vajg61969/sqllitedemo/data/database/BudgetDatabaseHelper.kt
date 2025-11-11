@@ -20,34 +20,16 @@ class BudgetDatabaseHelper(context: Context) :
      * Creates expenses and incomes tables with appropriate column types.
      * INTEGER PRIMARY KEY AUTOINCREMENT generates unique IDs automatically.
      */
+
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("""
-            CREATE TABLE IF NOT EXISTS expenses (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                amount REAL,
-                category TEXT,
-                date TEXT
-            )
-        """.trimIndent())
-
-        db.execSQL("""
-            CREATE TABLE IF NOT EXISTS incomes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                month TEXT,
-                amount REAL
-            )
-        """.trimIndent())
+        // Create a fonction that creates the tables Expenses and incomes (if they don't exist) OnCreate
     }
-
     /**
      * SQLite migration: Called when database version changes.
      * Drops existing tables and recreates them (destroys all data).
      */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS expenses")
-        db.execSQL("DROP TABLE IF EXISTS incomes")
-        onCreate(db)
+        //Destroy db and use Oncreate
     }
 
     /**
@@ -58,26 +40,26 @@ class BudgetDatabaseHelper(context: Context) :
     fun insertExpense(e: Expense): Long {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put("title", e.title)
-            put("amount", e.amount)
-            put("category", e.category)
-            put("date", e.date)
+            //ADD Right fields in the table with put
+            // Exemple : put("title", e.title)
         }
-        return db.insert("expenses", null, values)
+
+        // Insert values in the expenses table and return the ID of the new row
+        // Indice : utilisez db.insert(...)
+
+        return -1L // Temporary value to be replaced
     }
+
 
     /**
      * SQLite insert: Adds new income row to incomes table.
      * Returns the auto-generated row ID for the inserted income record.
      */
     fun insertIncome(i: Income): Long {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("month", i.month)
-            put("amount", i.amount)
-        }
-        return db.insert("incomes", null, values)
+        //Implement function to insert an income into the "incomes" table
+        return -1 //Provide the return value
     }
+
 
     /**
      * SQLite select: Queries expenses table using parameterized query (WHERE date LIKE ?).
@@ -86,26 +68,9 @@ class BudgetDatabaseHelper(context: Context) :
     fun getExpensesForMonth(month: String): List<Expense> {
         val list = mutableListOf<Expense>()
         val db = readableDatabase
-        val cursor = db.rawQuery(
-            "SELECT id, title, amount, category, date FROM expenses WHERE date LIKE ? ORDER BY date DESC",
-            arrayOf("$month-%")
-        )
-        try {
-            while (cursor.moveToNext()) {
-                list.add(
-                    Expense(
-                        id = cursor.getInt(0),
-                        title = cursor.getString(1),
-                        amount = cursor.getDouble(2),
-                        category = cursor.getString(3),
-                        date = cursor.getString(4)
-                    )
-                )
-            }
-        } finally {
-            cursor.close()
-        }
-        return list
+            //Implement function to retrieve all expenses for a given month
+
+        return emptyList() //Provide the return value
     }
 
     /**
@@ -114,36 +79,20 @@ class BudgetDatabaseHelper(context: Context) :
      * WHERE date LIKE ? filters expenses by month pattern (ex, "2024-01-%") it won"t work with an other approach.
      */
     fun getMonthlyTotal(month: String): Double {
-        var total = 0.0
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT SUM(amount) AS total FROM expenses WHERE date LIKE ?", arrayOf("$month-%"))
-        try {
-            if (cursor.moveToFirst() && !cursor.isNull(cursor.getColumnIndexOrThrow("total"))) {
-                total = cursor.getDouble(cursor.getColumnIndexOrThrow("total"))
-            }
-        } finally {
-            cursor.close()
-        }
-        return total
+        //Implement function to calculate the total expenses for a given month
+        return 0.0
     }
+
 
     /**
      * SQLite aggregation: Calculates total income using SUM() function.
      * Uses exact match on month column (WHERE month = ?) since month is stored as "YYYY-MM".
      */
     fun getMonthlyIncome(month: String): Double {
-        var total = 0.0
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT SUM(amount) AS total FROM incomes WHERE month = ?", arrayOf(month))
-        try {
-            if (cursor.moveToFirst() && !cursor.isNull(cursor.getColumnIndexOrThrow("total"))) {
-                total = cursor.getDouble(cursor.getColumnIndexOrThrow("total"))
-            }
-        } finally {
-            cursor.close()
-        }
-        return total
+        //Implement function to calculate the total income for a given month
+        return 0.0
     }
+
 
     /**
      * SQLite update: Modifies existing expense row identified by id.
@@ -151,74 +100,40 @@ class BudgetDatabaseHelper(context: Context) :
      * Returns number of rows updated (1 if successful, 0 if id not found).
      */
     fun updateExpense(e: Expense): Int {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("title", e.title)
-            put("amount", e.amount)
-            put("category", e.category)
-            put("date", e.date)
-        }
-        return db.update("expenses", values, "id=?", arrayOf(e.id.toString()))
+        //Implement function to update an existing expense in the expenses table
+        return 0
     }
+
 
     /**
      * SQLite update: Modifies existing income row by id.
      * Updates month and amount columns for the specified income record.
      */
     fun updateIncome(i: Income): Int {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("month", i.month)
-            put("amount", i.amount)
-        }
-        return db.update("incomes", values, "id=?", arrayOf(i.id.toString()))
+        //Implement function to update an existing income in the incomes table
+        return 0
     }
+
 
     /**
      * SQLite select: Retrieves single income by primary key (id).
      * Returns Income object if found, null if no record matches the id.
      */
     fun getIncomeById(id: Int): Income? {
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT id, month, amount FROM incomes WHERE id = ?", arrayOf(id.toString()))
-        return try {
-            if (cursor.moveToFirst()) {
-                Income(
-                    id = cursor.getInt(0),
-                    month = cursor.getString(1),
-                    amount = cursor.getDouble(2)
-                )
-            } else {
-                null
-            }
-        } finally {
-            cursor.close()
-        }
+        //Implement function to retrieve an income by its ID
+        return null
     }
+
 
     /**
      * SQLite select: Queries all incomes for a specific month.
      * Uses exact match on month column (WHERE month = ?) to filter income records.
      */
     fun getIncomesForMonth(month: String): List<Income> {
-        val list = mutableListOf<Income>()
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT id, month, amount FROM incomes WHERE month = ?", arrayOf(month))
-        try {
-            while (cursor.moveToNext()) {
-                list.add(
-                    Income(
-                        id = cursor.getInt(0),
-                        month = cursor.getString(1),
-                        amount = cursor.getDouble(2)
-                    )
-                )
-            }
-        } finally {
-            cursor.close()
-        }
-        return list
+        //Implement function to retrieve all incomes for a given month
+        return emptyList()
     }
+
 
     /**
      * SQLite delete: Removes expense row from expenses table by id.
@@ -226,16 +141,18 @@ class BudgetDatabaseHelper(context: Context) :
      * Returns number of rows deleted (1 if successful, 0 if id not found).
      */
     fun deleteExpense(id: Int): Int {
-        val db = writableDatabase
-        return db.delete("expenses", "id=?", arrayOf(id.toString()))
+        //Implement function to delete an expense by its ID
+        return 0
     }
+
 
     /**
      * SQLite delete: Removes income row from incomes table by id.
      * Deletes the income record with the specified primary key.
      */
     fun deleteIncome(id: Int): Int {
-        val db = writableDatabase
-        return db.delete("incomes", "id=?", arrayOf(id.toString()))
+        //Implement function to delete an income by its ID
+        return 0
     }
+
 }
